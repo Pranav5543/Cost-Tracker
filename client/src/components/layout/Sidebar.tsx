@@ -2,22 +2,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../store/slices/authSlice';
 import { RootState, AppDispatch } from '../../store';
 import { closeMobileMenu } from '../../store/slices/uiSlice';
+import { useLocation } from 'wouter';
 
 const Sidebar = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { user } = useSelector((state: RootState) => state.auth);
   const { isMobileMenuOpen } = useSelector((state: RootState) => state.ui);
+  const [location, setLocation] = useLocation();
   
   const handleLogout = async () => {
     try {
       await dispatch(logout()).unwrap();
+      setLocation('/');
     } catch (error) {
       console.error('Logout failed:', error);
     }
   };
 
+  const navigate = (path: string) => {
+    setLocation(path);
+    dispatch(closeMobileMenu());
+  };
+
   return (
-    <aside className={`${isMobileMenuOpen ? 'block' : 'hidden'} md:block w-full md:w-64 bg-gray-800 text-white md:min-h-screen`}>
+    <aside className={`${isMobileMenuOpen ? 'block' : 'hidden'} md:block w-full md:w-64 bg-gray-800 text-white md:min-h-screen fixed md:sticky top-0 z-40 h-full`}>
       <div className="p-4 border-b border-gray-700">
         <h2 className="text-xl font-bold">Project Cost Tracker</h2>
       </div>
@@ -25,34 +33,49 @@ const Sidebar = () => {
       <nav className="p-4">
         <ul className="space-y-2">
           <li>
-            <a href="#" className="flex items-center p-2 rounded-md bg-gray-700 text-white">
+            <button 
+              onClick={() => navigate('/dashboard')} 
+              className="w-full flex items-center p-2 rounded-md bg-gray-700 text-white hover:bg-primary-600"
+            >
               <i className="fas fa-home mr-3"></i>
               <span>Dashboard</span>
-            </a>
+            </button>
           </li>
           <li>
-            <a href="#" className="flex items-center p-2 rounded-md hover:bg-gray-700 text-gray-300 hover:text-white">
+            <button 
+              onClick={() => navigate('/dashboard')} 
+              className="w-full flex items-center p-2 rounded-md hover:bg-gray-700 text-gray-300 hover:text-white"
+            >
               <i className="fas fa-list-alt mr-3"></i>
               <span>Items</span>
-            </a>
+            </button>
           </li>
           <li>
-            <a href="#" className="flex items-center p-2 rounded-md hover:bg-gray-700 text-gray-300 hover:text-white">
+            <button 
+              onClick={() => navigate('/dashboard')} 
+              className="w-full flex items-center p-2 rounded-md hover:bg-gray-700 text-gray-300 hover:text-white"
+            >
               <i className="fas fa-dollar-sign mr-3"></i>
               <span>Other Costs</span>
-            </a>
+            </button>
           </li>
           <li>
-            <a href="#" className="flex items-center p-2 rounded-md hover:bg-gray-700 text-gray-300 hover:text-white">
+            <button 
+              onClick={() => navigate('/dashboard')} 
+              className="w-full flex items-center p-2 rounded-md hover:bg-gray-700 text-gray-300 hover:text-white"
+            >
               <i className="fas fa-chart-pie mr-3"></i>
               <span>Reports</span>
-            </a>
+            </button>
           </li>
           <li>
-            <a href="#" className="flex items-center p-2 rounded-md hover:bg-gray-700 text-gray-300 hover:text-white">
+            <button 
+              onClick={() => navigate('/dashboard')} 
+              className="w-full flex items-center p-2 rounded-md hover:bg-gray-700 text-gray-300 hover:text-white"
+            >
               <i className="fas fa-cog mr-3"></i>
               <span>Settings</span>
-            </a>
+            </button>
           </li>
         </ul>
       </nav>
@@ -69,7 +92,11 @@ const Sidebar = () => {
               {user?.email || 'User'}
             </span>
           </div>
-          <button onClick={handleLogout} className="text-gray-300 hover:text-white">
+          <button 
+            onClick={handleLogout} 
+            className="text-gray-300 hover:text-white p-2 rounded-full hover:bg-red-600"
+            title="Logout"
+          >
             <i className="fas fa-sign-out-alt"></i>
           </button>
         </div>

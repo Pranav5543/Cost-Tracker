@@ -65,7 +65,7 @@ const OtherCostsTable = () => {
         <h3 className="text-lg leading-6 font-medium text-gray-900">Other Costs</h3>
         <button 
           type="button" 
-          className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
           onClick={() => dispatch({ type: 'ui/openAddCostModal' })}
         >
           <i className="fas fa-plus mr-2"></i> Add Cost
