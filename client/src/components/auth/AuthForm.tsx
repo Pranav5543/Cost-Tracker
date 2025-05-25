@@ -97,14 +97,12 @@ const AuthForm = () => {
         <h1 className="text-3xl font-bold text-gray-800">Project Cost Tracker</h1>
         <p className="mt-2 text-sm text-gray-600">Sign in to manage your project costs</p>
       </div>
-      
       {/* Error message display */}
       {(error || validationError) && (
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative" role="alert">
           <span className="block sm:inline">{validationError || error}</span>
         </div>
       )}
-      
       {isLogin ? (
         <div className="mt-8 space-y-6">
           <div>
@@ -137,7 +135,7 @@ const AuthForm = () => {
           
           <div>
             <button 
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" 
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 text-[#3c445c] text-center" 
               onClick={handleLogin}
               disabled={loading}
             >
@@ -203,7 +201,7 @@ const AuthForm = () => {
           
           <div>
             <button 
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" 
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 text-[#3c445c]" 
               onClick={handleRegister}
               disabled={loading}
             >

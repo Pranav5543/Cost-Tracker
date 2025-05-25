@@ -3,12 +3,18 @@ import { logout } from '../../store/slices/authSlice';
 import { RootState, AppDispatch } from '../../store';
 import { closeMobileMenu } from '../../store/slices/uiSlice';
 import { useLocation } from 'wouter';
+import { useState, useEffect } from 'react';
 
-const Sidebar = () => {
+interface SidebarProps {
+  onSectionChange?: (section: string) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ onSectionChange }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { user } = useSelector((state: RootState) => state.auth);
   const { isMobileMenuOpen } = useSelector((state: RootState) => state.ui);
   const [location, setLocation] = useLocation();
+  const [activeSection, setActiveSection] = useState('dashboard');
   
   const handleLogout = async () => {
     try {
@@ -19,8 +25,14 @@ const Sidebar = () => {
     }
   };
 
-  const navigate = (path: string) => {
-    setLocation(path);
+  const navigate = (section: string) => {
+    setActiveSection(section);
+    
+    // Call the parent component's section change handler if provided
+    if (onSectionChange) {
+      onSectionChange(section);
+    }
+    
     dispatch(closeMobileMenu());
   };
 
@@ -34,8 +46,8 @@ const Sidebar = () => {
         <ul className="space-y-2">
           <li>
             <button 
-              onClick={() => navigate('/dashboard')} 
-              className="w-full flex items-center p-2 rounded-md bg-gray-700 text-white hover:bg-primary-600"
+              onClick={() => navigate('dashboard')} 
+              className={`w-full flex items-center p-2 rounded-md ${activeSection === 'dashboard' ? 'bg-primary-600 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}
             >
               <i className="fas fa-home mr-3"></i>
               <span>Dashboard</span>
@@ -43,8 +55,8 @@ const Sidebar = () => {
           </li>
           <li>
             <button 
-              onClick={() => navigate('/dashboard')} 
-              className="w-full flex items-center p-2 rounded-md hover:bg-gray-700 text-gray-300 hover:text-white"
+              onClick={() => navigate('items')} 
+              className={`w-full flex items-center p-2 rounded-md ${activeSection === 'items' ? 'bg-primary-600 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}
             >
               <i className="fas fa-list-alt mr-3"></i>
               <span>Items</span>
@@ -52,8 +64,8 @@ const Sidebar = () => {
           </li>
           <li>
             <button 
-              onClick={() => navigate('/dashboard')} 
-              className="w-full flex items-center p-2 rounded-md hover:bg-gray-700 text-gray-300 hover:text-white"
+              onClick={() => navigate('costs')} 
+              className={`w-full flex items-center p-2 rounded-md ${activeSection === 'costs' ? 'bg-primary-600 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}
             >
               <i className="fas fa-dollar-sign mr-3"></i>
               <span>Other Costs</span>
@@ -61,8 +73,8 @@ const Sidebar = () => {
           </li>
           <li>
             <button 
-              onClick={() => navigate('/dashboard')} 
-              className="w-full flex items-center p-2 rounded-md hover:bg-gray-700 text-gray-300 hover:text-white"
+              onClick={() => navigate('reports')} 
+              className={`w-full flex items-center p-2 rounded-md ${activeSection === 'reports' ? 'bg-primary-600 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}
             >
               <i className="fas fa-chart-pie mr-3"></i>
               <span>Reports</span>
@@ -70,8 +82,8 @@ const Sidebar = () => {
           </li>
           <li>
             <button 
-              onClick={() => navigate('/dashboard')} 
-              className="w-full flex items-center p-2 rounded-md hover:bg-gray-700 text-gray-300 hover:text-white"
+              onClick={() => navigate('settings')} 
+              className={`w-full flex items-center p-2 rounded-md ${activeSection === 'settings' ? 'bg-primary-600 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}
             >
               <i className="fas fa-cog mr-3"></i>
               <span>Settings</span>
