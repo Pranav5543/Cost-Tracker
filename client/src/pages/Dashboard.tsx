@@ -111,7 +111,7 @@ const BugReport = () => (
           placeholder="Please provide details about what happened and how to reproduce the issue" 
         />
       </div>
-      <div className="pt-4">
+      <div className="pt-4 text-left text-[#0c0]">
         <button className="px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-md text-sm font-medium">
           Submit Report
         </button>
